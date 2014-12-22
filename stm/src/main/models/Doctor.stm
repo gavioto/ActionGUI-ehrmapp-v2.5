@@ -1,0 +1,46 @@
+role DOCTOR extends DEFAULT{
+    MedicalInfo{
+        read constrainedBy 
+            [caller.asDoctor.doctorPatients->includes(self.medicalPatient) 
+             or caller.asDoctor.substitutions.doctorPatients
+                ->includes(self.medicalPatient)]
+    }
+    MedicalCase{
+        read, update constrainedBy 
+            [caller.asDoctor.doctorPatients
+                ->includes(self.medicalInfo.medicalPatient) 
+            or caller.asDoctor.substitutions.doctorPatients
+                ->includes(self.medicalInfo.medicalPatient)]
+        create
+    }
+    EHR{
+        read, update constrainedBy 
+            [caller.asDoctor.doctorPatients
+                ->includes(self.medicalCase.medicalInfo.medicalPatient) 
+            or caller.asDoctor.substitutions.doctorPatients
+                ->includes(self.medicalCase.medicalInfo.medicalPatient)]
+        create
+    }
+    SocialInfo{
+        read constrainedBy [caller.asDoctor.doctorPatients.social->includes(self)]
+    }
+    PublicInfo{
+        read
+    }
+    AllocationInfo{
+        read constrainedBy 
+            [caller.asDoctor.doctorPatients.allocation->includes(self) 
+            or caller.asDoctor.substitutions.doctorPatients.allocation
+                ->includes(self)]
+    }
+    ContactInfo{
+        read constrainedBy 
+            [caller.asDoctor.doctorPatients.contact->includes(self) 
+            or caller.asDoctor.substitutions.doctorPatients.contact->includes(self)]
+    }
+    Patient{
+        read constrainedBy 
+            [caller.asDoctor.doctorPatients->includes(self) 
+            or caller.asDoctor.substitutions.doctorPatients->includes(self)]
+    }
+}

@@ -1,0 +1,48 @@
+role ADMINISTRATIVE extends DEFAULT{
+    Professional{
+        // intersection is not supported
+        // read constrainedBy [caller.worksIn->intersection(self.worksIn)->notEmpty()]
+        read constrainedBy [caller.worksIn->exists(m| self.worksIn->includes(m))]
+    }
+    MedicalInfo{
+        create
+    }
+    Patient{
+        create
+        update (social), update (allocation), update (medical), update (administrative), update (contact),
+        update (public), update (vip) constrainedBy [caller.worksIn->includes(self.department.belongsTo)]
+        update (department) constrainedBy [caller.worksIn->includes(value.belongsTo)]
+        read constrainedBy [caller.worksIn->includes(self.department.belongsTo) or self.department->isEmpty()]
+        // intersection not supported
+        // add doctor, remove doctor constrainedBy [caller.worksIn->intersection(target.professional.worksIn)->notEmpty()]
+        update (doctor) constrainedBy [caller.worksIn->exists(m| value.doctorProfessional.worksIn->includes(m)) and caller.worksIn->includes(self.department.belongsTo)]
+    }
+    Expense{
+        // fullAccess constrainedBy [caller.worksIn->includes(self.administrative.patient.department.belongsTo->any(true))]
+        create
+        delete, read, update constrainedBy [caller.worksIn->includes(self.administrativeInfo.administrativePatient.department.belongsTo)]
+    }
+    ContactInfo{
+        create
+        read, update constrainedBy [caller.worksIn->includes(self.contactPatient.department.belongsTo)]
+    }
+    PublicInfo{
+        read, update constrainedBy [caller.worksIn->includes(self.publicPatient.department.belongsTo)]
+        create
+    }
+    AdministrativeInfo{
+        create
+        read, update constrainedBy [caller.worksIn->includes(self.administrativePatient.department.belongsTo)]
+    }
+    AllocationInfo{
+        read, update constrainedBy [caller.worksIn->includes(self.allocationPatient.department.belongsTo)]
+        create
+    }
+    SocialInfo{
+        create
+        update (description) constrainedBy [caller.worksIn->includes(self.socialPatient.department.belongsTo)]
+    }
+    Doctor {
+        read constrainedBy [caller.worksIn->exists(m| self.doctorProfessional.worksIn->includes(m))]
+    }
+}

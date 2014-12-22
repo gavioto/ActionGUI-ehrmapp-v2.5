@@ -1,0 +1,26 @@
+role NURSE extends DEFAULT{
+    MedicalCase{
+        read, update constrainedBy [caller.asNurse.nurseDepartments->includes(self.medicalInfo.medicalPatient.department)]
+    }
+    EHR{
+        create
+        read, update constrainedBy [caller.asNurse.nurseDepartments->includes(self.medicalCase.medicalInfo.medicalPatient.department)]
+    }
+    MedicalInfo{
+        read constrainedBy [caller.asNurse.nurseDepartments->includes(self.medicalPatient.department)]
+    }
+    ContactInfo{
+        // this one is for demos
+        // read constrainedBy [caller.worksIn.nurseDepartments.patients->includes(self.contactPatient)]
+        read constrainedBy [caller.asNurse.nurseDepartments->includes(self.contactPatient.department)]
+    }
+    AllocationInfo{
+        read constrainedBy [caller.asNurse.nurseDepartments->includes(self.allocationPatient.department)]
+    }
+    PublicInfo{
+        read
+    }
+    Patient{
+        read constrainedBy [caller.asNurse.nurseDepartments->includes(self.department)]
+    }
+}

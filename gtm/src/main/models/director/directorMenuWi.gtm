@@ -1,0 +1,35 @@
+Window directorMenuWi{
+    String text := ['Director Menu']
+    MedicalCenter medicalCenter
+ 
+    Label logoIMG {
+    }
+   
+    Button createProfBu{
+        String text := ['Create a professional']
+    }
+    Button reassignProfBu{
+        String text := ['Reassign a professional']
+    }
+    Button backBu{
+        String text := ['Back']
+    }
+}
+
+Button directorMenuWi.createProfBu{
+    event onClick{
+        open createProfessionalWi (medicalCenter:[$directorMenuWi.medicalCenter$])
+    }
+}
+
+Button directorMenuWi.reassignProfBu{
+    event onClick{
+        open reassignProfessionalWi (medicalCenter:[$directorMenuWi.medicalCenter$])
+    }
+}
+
+Button directorMenuWi.backBu{
+    event onClick{
+        back
+    }
+}

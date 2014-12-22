@@ -1,0 +1,56 @@
+role SYSTEM {
+    MedicalCenter {
+        fullAccess
+    }
+    Department {
+        fullAccess
+    }
+    Professional {
+        fullAccess
+    }
+    Director {
+        fullAccess
+    }
+    Administrative {
+        fullAccess
+    }
+    Doctor {
+        fullAccess
+    }
+    Nurse {
+        fullAccess
+    }
+    Referal {
+        fullAccess
+    }
+    Patient {
+        fullAccess
+    }
+    AllocationInfo {
+        fullAccess
+    }
+    ContactInfo {
+        fullAccess
+    }
+    AdministrativeInfo {
+        fullAccess
+    }
+    MedicalInfo {
+        fullAccess
+    }
+    SocialInfo {
+        fullAccess
+    }
+    PublicInfo {
+        fullAccess
+    }
+    Expense {
+        fullAccess
+    }    
+    MedicalCase {
+        fullAccess
+    }
+    EHR {
+        fullAccess
+    }   
+}

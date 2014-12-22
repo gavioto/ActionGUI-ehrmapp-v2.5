@@ -1,0 +1,215 @@
+Window registerPatientWi{
+    MedicalCenter medicalCenter
+    String text := ['Register a new patient']
+ 
+    Label logoIMG {
+    }
+
+    Label contactInfoLa{
+        String text := ['Contact information']
+    }
+    Label idLa{
+        String text := ['Id:']
+    }
+    Label nameLa{
+        String text := ['Name:']
+    }
+    Label surnameLa{
+        String text := ['Surname:']
+    }
+    Label genderLa{
+        String text := ['Gender:']
+    }
+    Label birthLa{
+        String text := ['Birth date:']
+    }
+    Label addressLa{
+        String text := ['Address:']
+    }
+    Label vipLa{
+        String text := ['VIP:']
+    }
+    Label publicInfoLa{
+        String text := ['Public information:']
+    }
+    Label bloodLa{
+        String text := ['Blood type:']
+    }
+    Label allergiesLa{
+        String text := ['Allergies:']
+    }
+    Label diabetesLa{
+        String text := ['Diabetes:']
+    }
+    Label foodRestrictLa{
+        String text := ['Food restrictions:']
+    }
+    Label medicineRestricLa{
+        String text := ['Medicine restrictions:']
+    }
+    Label adminInfoLa{
+        String text := ['Adminitrative information:']
+    }
+    Label insuranceLa{
+        String text := ['Insurance:']
+    }
+    Label accountLa{
+        String text := ['Account number:']
+    }
+    Label departmentsLa{
+        String text := ['Choose a department']
+    }
+    Label doctorsLa{
+        String text := ['Choose a doctor']
+    }
+    TextField idEn{
+        String text := ['']
+    }
+    TextField nameEn{
+        String text := ['']
+    }
+    TextField surnameEn{
+        String text := ['']
+    }
+    TextField addressEn{
+        String text := ['']
+    }
+    TextField bloodEn{
+        String text := ['']
+    }
+    TextField allergiesEn{
+        String text := ['']
+    }
+    TextField diabetesEn{
+        String text := ['']
+    }
+    TextField foodRestrictEn{
+        String text := ['']
+    }
+    TextField medicineRestrictEn{
+        String text := ['']
+    }
+    TextField insuranceEn{
+        String text := ['']
+    }
+    TextField accountEn{
+        String text := ['']
+    }
+    DateField birthCa{
+        LocalDateTime date
+    }
+    BooleanField vipBf{
+        Boolean value := [false]
+    }
+    ComboBox genderCb{
+        Set(String) rows := [Set{'Male', 'Female'}]
+    }
+    Table departmentsTa{
+        Department selected {
+            if [not $selected$.oclIsUndefined()] {
+                registerPatientWi.doctorsTa.rows := [$selected$.doctors]
+            }
+        }
+        Set(Department) rows := [$registerPatientWi.medicalCenter$.departments]
+    }
+    Table doctorsTa{
+        Set(Doctor) rows := [Doctor.allInstances()->select(false)]
+        Doctor selected
+    }
+    Button cancelBu{
+        String text := ['Cancel']
+    }
+    Button registerBu{
+        String text := ['Register']
+    }
+}
+
+ComboBox registerPatientWi.genderCb{
+    Label genderLa{
+        String text := [$genderCb.row$]
+    }
+}
+
+Table registerPatientWi.departmentsTa{
+    columns {
+        ['Department'] : Label departmentLa{
+            String text := [$departmentsTa.row$.nameDepartment]
+        }
+    }
+}
+
+Table registerPatientWi.doctorsTa{
+    columns {
+        ['Doctor'] : Label doctorLa{
+            String text := [$doctorsTa.row$.doctorProfessional.name.concat(' ').concat($doctorsTa.row$.doctorProfessional.surname)]
+        }
+    }
+}
+
+Button registerPatientWi.cancelBu{
+    event onClick{
+        back
+    }
+}
+
+Button registerPatientWi.registerBu{
+    event onClick{
+        error := ['']
+        if [$departmentsTa.selected$.oclIsUndefined()] {
+            error := ['You have to choose a department']
+        }
+        else {
+            if [$doctorsTa.selected$.oclIsUndefined()] {
+                error := ['You have to choose a doctor']
+            }
+            else {
+                newPatient := new Patient
+                [$newPatient$.department] := [$departmentsTa.selected$]
+                [$newPatient$.doctor] := [$doctorsTa.selected$]
+
+                newMedicalInfo := new MedicalInfo
+                newAllocationInfo := new AllocationInfo
+                newContactInfo := new ContactInfo
+                newPublicInfo := new PublicInfo
+                newAdministrativeInfo := new AdministrativeInfo
+                newSocialInfo := new SocialInfo
+
+                [$newPatient$.medical] := [$newMedicalInfo$]
+                [$newPatient$.allocation] := [$newAllocationInfo$]
+                [$newPatient$.contact] := [$newContactInfo$]
+                [$newPatient$.public] := [$newPublicInfo$]
+                [$newPatient$.administrative] := [$newAdministrativeInfo$]
+                [$newPatient$.social] := [$newSocialInfo$]
+
+                [$newPatient$.vip] := [$vipBf.value$]
+
+                [$newContactInfo$.id] := [$idEn.text$]
+                [$newContactInfo$.namePatient] := [$nameEn.text$]
+                [$newContactInfo$.surnamePatient] := [$surnameEn.text$]
+                if [$genderCb.selected$.oclIsUndefined()]{
+                    [$newContactInfo$.gender] := ['']
+                }
+                else{
+                    [$newContactInfo$.gender] := [$genderCb.selected$]
+                }
+                [$newContactInfo$.birthDate] := [$birthCa.date$]
+                [$newContactInfo$.address] := [$addressEn.text$]
+
+                [$newPublicInfo$.bloodType] := [$bloodEn.text$]
+                [$newPublicInfo$.allergies] := [$allergiesEn.text$]
+                [$newPublicInfo$.diabetes] := [$diabetesEn.text$]
+                [$newPublicInfo$.foodRestrictions] := [$foodRestrictEn.text$]
+                [$newPublicInfo$.medicineRestrictions] := [$medicineRestrictEn.text$]
+
+                [$newAdministrativeInfo$.insurance] := [$insuranceEn.text$]
+                [$newAdministrativeInfo$.accountNumber] := [$accountEn.text$]
+
+                [$newSocialInfo$.description] := ['None']
+
+                [$newAllocationInfo$.floor] := ['None']
+                [$newAllocationInfo$.room] := ['None']
+                back
+            }
+        }
+    }
+}

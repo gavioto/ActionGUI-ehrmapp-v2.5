@@ -1,0 +1,66 @@
+enum Role {
+    DEFAULT
+    DIRECTOR
+    ADMINISTRATIVE
+    DOCTOR
+    NURSE
+    SYSTEM
+}
+
+entity Professional{
+    String user
+    String password
+    String name
+    String surname
+    Role role
+
+    Nurse asNurse oppositeTo nurseProfessional
+    Doctor asDoctor oppositeTo doctorProfessional
+    Director asDirector oppositeTo directorProfessional
+    Administrative asAdministrative oppositeTo administrativeProfessional
+    /*
+    A professional can work in more than one department,
+    but just in one department of the same medical center.
+    */
+    Set(MedicalCenter) worksIn oppositeTo employees
+    Set(EHR) createdEHRs oppositeTo createdBy
+}
+
+entity Director{
+    Professional directorProfessional oppositeTo asDirector
+}
+
+entity Administrative{
+    Professional administrativeProfessional oppositeTo asAdministrative
+}
+
+entity Doctor{
+    String medicalLicense
+    /*
+    status:
+        - false: Unavailable
+        - true: Available
+    */
+    Boolean status
+
+    Professional doctorProfessional oppositeTo asDoctor
+    Set(Department) doctorDepartments oppositeTo doctors
+    Set(Patient) doctorPatients oppositeTo doctor
+    Set(Referal) referredPatients oppositeTo referred
+    Set(Referal) referingPatients oppositeTo refering
+    Doctor coveringDoctor oppositeTo substitutions
+    Set(Doctor) substitutions oppositeTo coveringDoctor
+}
+
+entity Nurse{
+    String nursingLicense
+
+    Professional nurseProfessional oppositeTo asNurse
+    Set(Department) nurseDepartments oppositeTo nurses
+}
+
+entity Referal{
+    Doctor referred oppositeTo referredPatients
+    Doctor refering oppositeTo referingPatients
+    Patient patient oppositeTo referredDoctors
+}

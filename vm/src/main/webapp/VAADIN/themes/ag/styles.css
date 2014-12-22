@@ -1,0 +1,20 @@
+@import "../reindeer/legacy-styles.css";
+
+@import "reassignProfessionalWi.css";
+@import "directorMenuWi.css";
+@import "medicalCenterWi.css";
+@import "registerPatientWi.css";
+@import "createProfessionalWi.css";
+@import "loginWi.css";
+@import "patientsWi.css";
+@import "movePatientWi.css";
+
+/* The following rule is to avoid resizeable text fields */
+.v-textarea {
+    resize: none
+}
+
+/* The following rule is to avoid problems when a text field is higher than their standard value*/
+.v-textfield {
+    background-image: none;
+}

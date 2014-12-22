@@ -1,0 +1,10 @@
+/* Role Default*/
+
+role DEFAULT {
+    Department{
+        read constrainedBy [caller.worksIn->includes(self.belongsTo)]
+    }
+    MedicalCenter{
+        read constrainedBy [caller.worksIn->includes(self)]
+    }
+}

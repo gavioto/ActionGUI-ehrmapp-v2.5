@@ -1,0 +1,285 @@
+Window loginWi{
+    String text := ['Medical Application']
+
+    Label logoIMG {
+    }
+
+    Label loginLa{
+        String text := ['Please, log in.']
+    }
+    Label userLa{
+        String text := ['User:']
+    }
+    Label passLa{
+        String text := ['Password:']
+    }
+    TextField userEn{
+        String text := ['']
+    }
+    PasswordField passEn{
+        String text := ['']
+    }
+    Button loginBu{
+        Professional professional
+        String text := ['Enter']
+    }
+    Button resetBu {
+        String text := ['Reset']
+    }
+}
+
+Button loginWi.loginBu{
+    event onClick{
+        if [Professional.allInstances()->exists(p|p.user = $userEn.text$ and p.password = $passEn.text$)]{
+            professional := [Professional.allInstances()->any(p|p.user = $userEn.text$ and p.password = $passEn.text$)]
+            open medicalCenterWi(caller:[$professional$], role:[$professional$.role])
+        }
+        else{
+            notification(['Message'], ['Incorrect login. Please, try again.'], [2000])
+        }
+    }
+}
+
+Button loginWi.resetBu{
+    event onClick{
+        // First, delete the instances of all entities
+        foreach mc in [MedicalCenter.allInstances()] {
+            delete [$mc$]
+        }
+        foreach department in [Department.allInstances()] {
+            delete [$department$]
+        }
+        foreach professional in [Professional.allInstances()] {
+            delete [$professional$]
+        }
+        foreach director in [Director.allInstances()] {
+            delete [$director$]
+        }
+        foreach administrative in [Administrative.allInstances()] {
+            delete [$administrative$]
+        }
+        foreach doctor in [Doctor.allInstances()] {
+            delete [$doctor$]
+        }
+        foreach nurse in [Nurse.allInstances()] {
+            delete [$nurse$]
+        }
+        foreach referal in [Referal.allInstances()] {
+            delete [$referal$]
+        }
+        foreach patient in [Patient.allInstances()] {
+            delete [$patient$]
+        }
+        foreach allocationInfo in [AllocationInfo.allInstances()] {
+            delete [$allocationInfo$]
+        }
+        foreach contactInfo in [ContactInfo.allInstances()] {
+            delete [$contactInfo$]
+        }
+        foreach administrativeInfo in [AdministrativeInfo.allInstances()] {
+            delete [$administrativeInfo$]
+        }
+        foreach medicalInfo in [MedicalInfo.allInstances()] {
+            delete [$medicalInfo$]
+        }
+        foreach socialInfo in [SocialInfo.allInstances()] {
+            delete [$socialInfo$]
+        }
+        foreach publicInfo in [PublicInfo.allInstances()] {
+            delete [$publicInfo$]
+        }
+        foreach expense in [Expense.allInstances()] {
+            delete [$expense$]
+        }
+        foreach medicalCase in [MedicalCase.allInstances()] {
+            delete [$medicalCase$]
+        }
+        foreach eHR in [EHR.allInstances()] {
+            delete [$eHR$]
+        }
+
+
+        // Second, create the initial scenario
+        jorge := new Professional
+        [$jorge$.user] := ['jorge']
+        [$jorge$.password] := ['1111']
+        [$jorge$.name] := ['Jorge']
+        [$jorge$.surname] := ['Cuellar']
+        [$jorge$.role] := [Role::DOCTOR]
+
+        miguel := new Professional
+        [$miguel$.user] := ['miguel']
+        [$miguel$.password] := ['1111']
+        [$miguel$.name] := ['Miguel']
+        [$miguel$.surname] := ['Garcia']
+        [$miguel$.role] := [Role::DOCTOR]
+
+        karen := new Professional
+        [$karen$.user] := ['karen']
+        [$karen$.password] := ['1111']
+        [$karen$.name] := ['Karen']
+        [$karen$.surname] := ['Sraderr']
+        [$karen$.role] := [Role::NURSE]
+
+        alice := new Professional
+        [$alice$.user] := ['alice']
+        [$alice$.password] := ['1111']
+        [$alice$.name] := ['Alice']
+        [$alice$.surname] := ['Gonzalez']
+        [$alice$.role] := [Role::ADMINISTRATIVE]
+
+        narciso := new Professional
+        [$narciso$.user] := ['narciso']
+        [$narciso$.password] := ['1111']
+        [$narciso$.name] := ['Narciso']
+        [$narciso$.surname] := ['Marti']
+        [$narciso$.role] := [Role::DIRECTOR]
+
+        narcisoDirector := new Director
+
+        aliceAdministrative := new Administrative
+
+        jorgeDoctor := new Doctor
+        [$jorgeDoctor$.status] := [true]
+        [$jorgeDoctor$.medicalLicense] := ['1001']
+
+        miguelDoctor := new Doctor
+        [$miguelDoctor$.status] := [true]
+        [$miguelDoctor$.medicalLicense] := ['1002']
+
+        karenNurse := new Nurse
+        [$karenNurse$.nursingLicense] := ['2001']
+
+        [$narciso$.asDirector] := [$narcisoDirector$]
+        [$jorge$.asDoctor] := [$jorgeDoctor$]
+        [$miguel$.asDoctor] := [$miguelDoctor$]
+        [$karen$.asNurse] := [$karenNurse$]
+        [$alice$.asAdministrative] := [$aliceAdministrative$]
+
+        medicalCenter := new MedicalCenter
+        [$medicalCenter$.addressCenter] := ['Ramistrasse 100']
+        [$medicalCenter$.country] := ['Switzerland']
+        [$medicalCenter$.nameCenter] := ['North Hospital']
+        [$medicalCenter$.zipCode] := [8006]
+        [$medicalCenter$.city] := ['Zurich']
+
+        departmentN1 := new Department
+        [$departmentN1$.location] := ['First floor']
+        [$departmentN1$.nameDepartment] := ['Department N1']
+
+        departmentN2 := new Department
+        [$departmentN2$.location] := ['Second floor']
+        [$departmentN2$.nameDepartment] := ['Department N2']
+
+        [$medicalCenter$.departments] += [$departmentN1$]
+        [$medicalCenter$.departments] += [$departmentN2$]
+
+        [$medicalCenter$.employees] += [$jorge$]
+        [$medicalCenter$.employees] += [$miguel$]
+        [$medicalCenter$.employees] += [$alice$]
+        [$medicalCenter$.employees] += [$karen$]
+        [$medicalCenter$.employees] += [$narciso$]
+
+        [$departmentN1$.doctors] += [$jorgeDoctor$]
+        [$departmentN2$.doctors] += [$miguelDoctor$]
+
+        [$departmentN2$.nurses] += [$karenNurse$]
+
+        peter := new Patient
+        peterCo := new ContactInfo
+        [$peterCo$.birthDate] := [LocalDateTime.parse('80-01-25')]
+        [$peterCo$.surnamePatient] := ['Smith']
+        [$peterCo$.gender] := ['Male']
+        [$peterCo$.id] := ['1']
+        [$peterCo$.address] := ['Clausiusstrasse 38, Zurich']
+        [$peterCo$.namePatient] := ['Peter']
+        peterAl := new AllocationInfo
+        [$peterAl$.floor] := ['1']
+        [$peterAl$.room] := ['108']
+        peterAd := new AdministrativeInfo
+        [$peterAd$.insurance] := ['Adeslas']
+        [$peterAd$.accountNumber] := ['10848753']
+        peterSo := new SocialInfo
+        [$peterSo$.description] := ['Drug consumer']           
+        peterPu := new PublicInfo
+        [$peterPu$.allergies] := ['None']
+        [$peterPu$.bloodType] := ['A-']
+        [$peterPu$.medicineRestrictions] := ['Prinperan']
+        [$peterPu$.diabetes] := ['None']
+        [$peterPu$.foodRestrictions] := ['Lactose intolerance']
+        peterMe := new MedicalInfo
+        peterMeCa1 := new MedicalCase
+        [$peterMeCa1$.medicalDescription] := ['Strong stomachache']
+        [$peterMeCa1$.endDate] := [LocalDateTime.parse('2011-11-26T11:30:45')]
+        [$peterMeCa1$.medicalId] := ['1001']
+        [$peterMeCa1$.startDate] := [LocalDateTime.parse('2011-11-15T09:35:04')]
+        peterMeCa2 := new MedicalCase
+        [$peterMeCa2$.medicalDescription] := ['Cold']
+        [$peterMeCa2$.endDate] := [LocalDateTime.parse('2012-02-01T10:45:32')]
+        [$peterMeCa2$.medicalId] := ['1002']
+        [$peterMeCa2$.startDate] := [LocalDateTime.parse('2012-01-26T14:25:24')]
+        peterMeCa3 := new MedicalCase
+        [$peterMeCa3$.medicalDescription] := ['Broken left arm']
+        [$peterMeCa3$.endDate] := [LocalDateTime.parse('2012-01-14T11:45:32')]
+        [$peterMeCa3$.medicalId] := ['2001']
+        [$peterMeCa3$.startDate] := [LocalDateTime.parse('2012-01-14T11:15:24')]
+        [$peter$.contact] := [$peterCo$]
+        [$peter$.allocation] := [$peterAl$]
+        [$peter$.administrative] := [$peterAd$]
+        [$peter$.social] := [$peterSo$]
+        [$peter$.public] := [$peterPu$]
+        [$peter$.medical] := [$peterMe$]
+        [$peterMe$.cases] += [$peterMeCa1$]
+        [$peterMe$.cases] += [$peterMeCa2$]
+        [$peterMe$.cases] += [$peterMeCa3$]
+        [$peter$.doctor] := [$jorgeDoctor$]
+        [$peter$.department] := [$departmentN1$]
+
+        bob := new Patient
+        bobCo := new ContactInfo
+        [$bobCo$.birthDate] := [LocalDateTime.parse('78-04-20')]
+        [$bobCo$.surnamePatient] := ['Carter']
+        [$bobCo$.gender] := ['Male']
+        [$bobCo$.id] := ['2']
+        [$bobCo$.address] := ['Leonhardstrasse 25A, Zurich']
+        [$bobCo$.namePatient] := ['Bob']
+        bobAl := new AllocationInfo
+        [$bobAl$.floor] := ['1']
+        [$bobAl$.room] := ['109']
+        bobAd := new AdministrativeInfo
+        [$bobAd$.insurance] := ['Adeslas']
+        [$bobAd$.accountNumber] := ['10123753']
+        bobSo := new SocialInfo
+        [$bobSo$.description] := ['Alcoholism problems two years ago']           
+        bobPu := new PublicInfo
+        [$bobPu$.allergies] := ['Pollen and cats']
+        [$bobPu$.bloodType] := ['B-']
+        [$bobPu$.medicineRestrictions] := ['Penicillin']
+        [$bobPu$.diabetes] := ['None']
+        [$bobPu$.foodRestrictions] := ['None']
+        bobMe := new MedicalInfo
+        bobMeCa1 := new MedicalCase
+        [$bobMeCa1$.medicalDescription] := ['Appendicitis']
+        [$bobMeCa1$.endDate] := [LocalDateTime.parse('2012-02-02T17:34:09')]
+        [$bobMeCa1$.medicalId] := ['3001']
+        [$bobMeCa1$.startDate] := [LocalDateTime.parse('2012-01-30T08:17:44')]
+        bobMeCa2 := new MedicalCase
+        [$bobMeCa2$.medicalDescription] := ['Backache']
+        [$bobMeCa2$.endDate] := [LocalDateTime.parse('2012-01-15T16:46:09')]
+        [$bobMeCa2$.medicalId] := ['4001']
+        [$bobMeCa2$.startDate] := [LocalDateTime.parse('2012-01-15T14:51:52')]
+        [$bob$.contact] := [$bobCo$]
+        [$bob$.allocation] := [$bobAl$]
+        [$bob$.administrative] := [$bobAd$]
+        [$bob$.social] := [$bobSo$]
+        [$bob$.public] := [$bobPu$]
+        [$bob$.medical] := [$bobMe$]
+        [$bobMe$.cases] += [$bobMeCa1$]
+        [$bobMe$.cases] += [$bobMeCa2$]
+        [$bob$.doctor] := [$miguelDoctor$]
+        [$bob$.department] := [$departmentN2$]
+
+        //Fourth, show a successful message
+        notification(['Message'],['The application data has been reset to the initial scenario'],[2000])
+    }
+}

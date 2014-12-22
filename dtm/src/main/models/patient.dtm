@@ -1,0 +1,86 @@
+entity Patient{
+    Boolean vip
+
+    Doctor doctor oppositeTo doctorPatients
+    Department department oppositeTo patients
+    Set(Referal) referredDoctors oppositeTo patient
+
+    AllocationInfo allocation oppositeTo allocationPatient
+    ContactInfo contact oppositeTo contactPatient
+    AdministrativeInfo administrative oppositeTo administrativePatient
+    MedicalInfo medical oppositeTo medicalPatient
+    SocialInfo social oppositeTo socialPatient
+    PublicInfo public oppositeTo publicPatient
+}
+
+entity AllocationInfo{
+    String floor
+    String room
+
+    Patient allocationPatient oppositeTo allocation
+}
+
+entity ContactInfo{
+    String namePatient
+    String surnamePatient
+    String gender
+    LocalDateTime birthDate
+    String address
+    String id
+
+    Patient contactPatient oppositeTo contact
+}
+
+entity AdministrativeInfo{
+    String insurance
+    String accountNumber
+
+    Patient administrativePatient oppositeTo administrative
+    Set(Expense) expenses oppositeTo administrativeInfo
+}
+
+entity MedicalInfo{
+    Patient medicalPatient oppositeTo medical
+    Set(MedicalCase) cases oppositeTo medicalInfo
+}
+
+entity SocialInfo{
+    String description
+
+    Patient socialPatient oppositeTo social
+}
+
+entity PublicInfo{
+    String bloodType
+    String allergies
+    String diabetes
+    String foodRestrictions
+    String medicineRestrictions
+
+    Patient publicPatient oppositeTo public
+}
+
+entity Expense{
+    String concept
+    Integer amount
+    LocalDateTime dateExpense
+
+    AdministrativeInfo administrativeInfo oppositeTo expenses
+}
+
+entity MedicalCase{
+    LocalDateTime startDate
+    LocalDateTime endDate
+    String medicalDescription
+    String medicalId
+
+    MedicalInfo medicalInfo oppositeTo cases
+    Set(EHR) eHRs oppositeTo medicalCase
+}
+
+entity EHR{
+    LocalDateTime date
+
+    Professional createdBy oppositeTo createdEHRs
+    MedicalCase medicalCase oppositeTo eHRs
+}

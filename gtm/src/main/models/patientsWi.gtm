@@ -1,0 +1,124 @@
+Window patientsWi{
+    String text := ['Patients']
+    MedicalCenter medicalCenter
+
+    Label logoIMG {
+    }
+
+    Label medicalCenterLa{
+        String text := 
+            ['Medical center: '.concat($patientsWi.medicalCenter$.nameCenter)]
+    }
+    Label patientsLa{
+        String text := ['List of patients:']
+    }
+    Table patientsTa{
+        Set(Patient) rows := [$patientsWi.medicalCenter$.departments.patients->asSet()]
+        Patient selected
+    }
+    Button movePatientBu{
+        String text := ['Move the selected patient']
+    }
+    Button backBu{
+        String text := ['Back']
+    }
+}
+
+Table patientsWi.patientsTa{
+    columns {
+        ['Name'] : Label name {
+            event onView (text) {
+                try {
+                    text := [$patientsTa.row$.contact.namePatient]
+                }
+                catch (SecurityException)
+                {
+                    text := ['---']
+                }
+            }
+        }
+        ['Surname'] : Label surname {
+            event onView (text) {
+                try {
+                    text := [$patientsTa.row$.contact.surnamePatient]
+                    }
+                 catch (SecurityException)
+                 {
+                    text := ['---']
+                 }
+            }     
+        }
+        ['Gender'] : Label gender {
+            event onView (text) {
+                try {
+                    text := [$patientsTa.row$.contact.gender]
+                }
+                catch (SecurityException)
+                {
+                    text := ['---']
+                }
+            }
+        }
+        ['Floor'] : Label floor {
+            event onView (text) {
+                try {
+                    text := [$patientsTa.row$.allocation.floor]
+                }
+                catch (SecurityException)
+                {
+                    text := ['---']
+                }
+            }
+        }
+        ['Room'] : Label room {
+            event onView (text) {
+                try {
+                    text := [$patientsTa.row$.allocation.room]
+                }
+                catch (SecurityException)
+                {
+                    text := ['---']
+                }
+            }
+        }
+        ['Social Info'] : Label socialInfo {
+            event onView (text) {
+                try {
+                    text := [$patientsTa.row$.social.description]
+                    }
+                catch (SecurityException)
+                    {
+                    text := ['---']
+                    }
+                }
+        }
+    }
+}
+
+Button patientsWi.movePatientBu{
+    event onClick{
+        try {
+            if [$patientsWi.caller$.asAdministrative->notEmpty()] {
+                if [not $patientsTa.selected$.oclIsUndefined()] {
+                    open movePatientWi(medicalCenter:[$patientsWi.medicalCenter$], patient: [$patientsTa.selected$])
+                }
+                else{
+                    notification(['Message'],['You have to select a patient.'],[2000])
+                }
+            }
+            else{
+                notification(['Message'],['You are not administrative of this medical center.'],[2000])
+            }
+        }
+        catch(SecurityException) {
+            notification(['Message'],['You are not administrative of this medical center.'],[2000])
+        }
+    }
+}
+
+Button patientsWi.backBu{
+    event onClick{
+        back
+    }
+}
+

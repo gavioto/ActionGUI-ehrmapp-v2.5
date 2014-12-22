@@ -1,0 +1,20 @@
+entity MedicalCenter{
+    String nameCenter
+    String addressCenter
+    Integer zipCode
+    String city
+    String country
+
+    Set(Department) departments oppositeTo belongsTo
+    Set(Professional) employees oppositeTo worksIn
+}
+
+entity Department{
+    String nameDepartment
+    String location
+
+    MedicalCenter belongsTo oppositeTo departments
+    Set(Doctor) doctors oppositeTo doctorDepartments
+    Set(Nurse) nurses oppositeTo nurseDepartments
+    Set(Patient) patients oppositeTo department
+}

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!-- was: no XML declaration present -->
+<ns1:window-layout ns1:id="reassignProfessionalWi"
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xmlns:ns1='http://actiongui.org/schemes/ag-layout/2.4'
+    xsi:schemaLocation='http://actiongui.org/schemes/ag-layout/2.4 http://www.actiongui.org/schemes/ag-layout/2.4/schema.xsd'>
+ <ns1:line-layout orientation="horizontal" ns1:height="100%">
+     <!-- LEFT PANNEL -->
+     <ns1:entry>
+         <ns1:line-layout orientation="horizontal" ns1:width="30px" ns1:height="auto"/>
+     </ns1:entry>
+     <!-- CENTRAL PANNEL -->
+    <ns1:entry>
+        <ns1:line-layout orientation="vertical" ns1:height="auto" ns1:width="1200px">   
+            <!-- TOP (CENTER PANNEL) -->
+            <ns1:entry>
+                <ns1:line-layout orientation="vertical" ns1:height="30px"/>
+            </ns1:entry> 
+            <!-- MIDDLE (CENTER PANNEL) -->
+            <ns1:entry>
+                <ns1:line-layout orientation="vertical" ns1:height="auto" ns1:width="auto">
+                    <!-- TOP (MIDDLE CENTER PANNEL)-->
+                    <ns1:entry>
+                        <ns1:line-layout orientation="vertical" ns1:height="30px">
+                            <ns1:entry>
+                                <ns1:widget ns1:id="logoIMG"></ns1:widget>
+                            </ns1:entry>
+                        </ns1:line-layout>
+                    </ns1:entry>
+                    <!-- END TOP (MIDDLE CENTER PANNEL) -->
+                    <!-- SEPARATOR (MIDDLE CENTER PANNEL) -->
+                    <ns1:entry>
+                        <ns1:line-layout orientation="vertical" ns1:height="10px" />
+                    </ns1:entry>
+                    <!-- END SEPARATOR (MIDDLE CENTER PANNEL) -->
+                    <!-- CENTER (MIDDLE CENTER PANNEL) -->
+                    <ns1:entry>
+                        <ns1:line-layout orientation="vertical" ns1:height="auto" ns1:width="auto">
+                            <ns1:entry>
+                                <ns1:widget ns1:id="medicalCenterLa" ns1:height="30px" ns1:width="400px"></ns1:widget>
+                            </ns1:entry>
+                            <ns1:entry>
+                                <ns1:line-layout orientation="vertical" ns1:height="40px"></ns1:line-layout>
+                            </ns1:entry>
+
+                            <ns1:entry>
+                                <ns1:widget ns1:id="selectProfessionalLa" ns1:height="30px" ns1:width="400px"></ns1:widget>
+                            </ns1:entry>
+                            <ns1:entry>
+                                <ns1:table ns1:id="professionalsTa" ns1:height="250px" ns1:width="600px">
+                                    <ns1:column>
+                                        <ns1:widget ns1:id="name" ns1:height="30px"></ns1:widget>
+                                    </ns1:column>
+                                    <ns1:column>
+                                        <ns1:widget ns1:id="surname" ns1:height="30px"></ns1:widget>
+                                    </ns1:column>
+                                    <ns1:column>
+                                        <ns1:widget ns1:id="professional" ns1:height="30px"></ns1:widget>
+                                    </ns1:column>
+                                    <ns1:column>
+                                        <ns1:widget ns1:id="department" ns1:height="30px"></ns1:widget>
+                                    </ns1:column>
+                                </ns1:table>
+                            </ns1:entry>
+                            <ns1:entry>
+                                <ns1:line-layout orientation="vertical" ns1:height="40px"></ns1:line-layout>
+                            </ns1:entry>
+
+                            <ns1:entry>
+                                <ns1:widget ns1:id="selectDepartmentLa" ns1:height="30px" ns1:width="400px"></ns1:widget>
+                            </ns1:entry>
+                            <ns1:entry>
+                                <ns1:table ns1:id="departmentsTa" ns1:height="200px" ns1:width="200px">
+                                    <ns1:column>
+                                        <ns1:widget ns1:id="department" ns1:height="30px"></ns1:widget>
+                                    </ns1:column>
+                                </ns1:table>
+                            </ns1:entry>
+                            <ns1:entry>
+                                <ns1:line-layout orientation="vertical" ns1:height="40px"></ns1:line-layout>
+                            </ns1:entry>
+                            <ns1:entry>
+                                <ns1:widget ns1:id="reassignBu" ns1:height="30px" ns1:width="250px"></ns1:widget>
+                            </ns1:entry>                        
+                            <ns1:entry>
+                                <ns1:widget ns1:id="backBu" ns1:height="30px" ns1:width="250px"></ns1:widget>
+                            </ns1:entry>
+                        </ns1:line-layout>
+                    </ns1:entry>
+                    <!-- END CENTER (MIDDLE CENTER PANNEL) -->
+                </ns1:line-layout>
+            </ns1:entry>
+            <!-- END MIDDLE (CENTER PANNEL) -->
+        </ns1:line-layout>
+    </ns1:entry>
+    <!-- END CENTRAL PANNEL -->
+    <!-- RIGHT PANNEL -->
+    <ns1:entry expand-ratio="1">
+        <ns1:line-layout orientation="horizontal"/>
+    </ns1:entry>
+    <!-- END RIGHT PANNEL -->
+</ns1:line-layout>
+</ns1:window-layout>

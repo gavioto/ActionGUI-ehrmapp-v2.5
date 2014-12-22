@@ -1,0 +1,34 @@
+role DIRECTOR extends DEFAULT{
+    Administrative{
+        // create does not support self --> fullAccess can not be used
+        // fullAccess constrainedBy [caller.worksIn->intersection(self.professional.worksIn)->notEmpty()]
+        // intersection is not supported
+        // delete, read, update constrainedBy [caller.worksIn->intersection(self.professional.worksIn)->notEmpty()]
+        delete, read, update constrainedBy [caller.worksIn->exists(m|self.administrativeProfessional.worksIn->includes(m))]
+        create
+    }
+    Doctor{
+        // create does not support self --> fullAccess can not be used
+        // entityFullAccess constrainedBy [caller.worksIn->intersection(self.professional.worksIn)->notEmpty()]
+        // intersection is not supported
+        // delete, read, update constrainedBy [caller.worksIn->intersection(self.professional.worksIn)->notEmpty()]
+        delete, read, update constrainedBy [caller.worksIn->exists(m|self.doctorProfessional.worksIn->includes(m))]
+        create
+    }
+    Nurse{
+        // create does not support self --> fullAccess can not be used
+        // entityFullAccess constrainedBy [caller.worksIn->intersection(self.professional.worksIn)->notEmpty()]
+        // intersection is not supported
+        // delete, read, update constrainedBy [caller.worksIn->intersection(self.professional.worksIn)->notEmpty()]
+        delete, read, update constrainedBy [caller.worksIn->exists(m|self.nurseProfessional.worksIn->includes(m))]
+        create
+    }
+    Professional{
+        delete, read,
+        update (password), update (user), update (name), update (surname),
+        update (asNurse), update (asDoctor), update (asDirector), update (asAdministrative),
+        update (role) constrainedBy [caller.worksIn->exists(m|self.worksIn->includes(m))]
+        create
+        add (worksIn), remove (worksIn) constrainedBy [caller.worksIn->includes(target)]
+    }
+}

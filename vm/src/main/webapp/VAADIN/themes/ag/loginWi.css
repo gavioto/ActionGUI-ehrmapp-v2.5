@@ -1,0 +1,151 @@
+
+.logoIMG {
+    background-image: url('nessos.png');
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.v-textfield {
+    background-color: white;
+    border-color: #000000;
+    border-width: thin;
+    border-style: solid;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+.v-captiontext {
+    font-family: Arial, sans-serif;
+    font-size: 12px; 
+}
+.v-table {
+    font-family: Arial, sans-serif;
+}
+.v-table-cell-content {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+
+}
+.v-table-header-cell {
+    border-color: #000000 !important;
+    border-width: thick;
+}
+.v-table-caption-container {
+    border-color: #000000;
+    border-width: thin;
+    font-family: Arial, sans-serif;
+}
+.v-nativebutton {
+    background-color: #D3D3D3;
+    border-color: #000000;
+    border-width: thin !important;
+    color: #000000 !important;
+    font-family: Arial, sans-serif;
+    font-size: 16px !important;
+    font-weight: bolder !important;
+    outline: 0;
+    line-height: 30px;
+    text-align: center;
+    padding: 0 8px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    //text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    margin: 2px;
+}
+.v-select-select {
+    background-color: white !important;
+    border-color: #000000;
+    border-width: thin;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    border-style : solid ;
+    font-size: 12px !important; 
+}
+.v-table-body {
+    /* background: none repeat scroll 0 0 #F5CCCC; */
+    border-color: #000000;
+    border-width: thin;
+}
+
+.v-table-header {
+    background: #D3D3D3;
+    color: #000000;
+    font-size: 14px;
+    font-weight: bold !important;
+    font-family: Arial, sans-serif;
+}
+.v-table-resizer {
+   /* background: #000000; */
+}
+.v-table-header-wrap {
+    border-color: #000000;
+    border-width: thin;
+}
+.v-table-row-spacer {
+   /* border-color: #000000; */
+}
+.v-table-header-cell {
+   /* border-color: black; */
+}
+.v-table-table {
+   /* background: black !important; */
+}
+
+.v-datefield-calendarpanel {
+    background: #D3D3D3;
+    color: white;
+    font-weight: bold;
+}
+
+.v-datefield-calendarpanel-header {
+    color: #D3D3D3;
+}
+
+.v-checkbox {
+    background: #D3D3D3;  
+    line-height: 30px
+}
+
+.v-panel-loginWi {
+    background: #fff;
+}
+
+.v-panel-createProfessionalAdminWi {
+    background: #fff;
+}
+
+.v-panel-createProfessionalDoctorWi {
+    background: #fff;
+}
+
+.v-panel-createProfessionalNurseWi {
+    background: #fff;
+}
+
+.v-panel-createProfessionalWi {
+    background: #fff;
+}
+
+.v-panel-directorMenuWi {
+    background: #fff;
+}
+
+.v-panel-medicalCenterWi {
+    background: #fff;
+}
+
+.v-panel-movePatientWi {
+    background: #fff;
+}
+
+.v-panel-patientsWi {
+    background: #fff;
+}
+
+.v-panel-reassignProfessionalWi {
+    background: #fff;
+}
+
+.v-panel-registerPatientWi {
+    background: #fff;
+}
+
