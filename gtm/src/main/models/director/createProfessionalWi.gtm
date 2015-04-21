@@ -59,7 +59,7 @@ Window createProfessionalWi{
     TextField userEn{
         String text := ['']
     }
-    TextField passwordEn{
+    PasswordField passwordEn{
         String text := ['']
     }
     TextField doctorLicenseEn{
